@@ -18,7 +18,7 @@ public abstract class BaseActivity extends Activity {
      * @param action  任务类型
      * @param message 失败提示
      */
-    abstract void onTaskFail(int action, String message);
+    public abstract void onTaskFail(int action, String message);
 
     /**
      * 执行任务成功 调用的方法
@@ -26,7 +26,7 @@ public abstract class BaseActivity extends Activity {
      * @param action 任务类型
      * @param data   成功之后的数据
      */
-    abstract void onTaskSuccess(int action, Object data);
+    public abstract void onTaskSuccess(int action, Object data);
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
