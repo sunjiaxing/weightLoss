@@ -9,6 +9,9 @@ import android.support.annotation.Nullable;
 
 import com.weightloss.exception.AppException;
 
+/**
+ * 执行任务的服务
+ */
 public class TaskService extends Service {
 
     public static boolean isRunning = false;
@@ -25,17 +28,17 @@ public class TaskService extends Service {
     public void onCreate() {
         super.onCreate();
         isRunning = true;
-        handler = new Handler(){
+        handler = new Handler() {
             @Override
             public void handleMessage(Message msg) {
                 super.handleMessage(msg);
-                switch (msg.what){
+                Task task = (Task) msg.obj;
+                switch (msg.what) {
                     case TASK_RUN_SUCCESS:
-                        Task task = (Task) msg.obj;
-                        task.getCallBack().onTaskSuccess(task.getmAction(),task.getReturnData());
+                        task.getCallBack().onTaskSuccess(task.getmAction(), task.getReturnData());
                         break;
                     case TASK_RUN_ERROR:
-
+                        task.getCallBack().onTaskFail(task.getmAction(), task.getErrorMessage());
                         break;
                 }
             }
@@ -50,15 +53,13 @@ public class TaskService extends Service {
                 while (isRunning) {
                     Task task = TaskManager.getNext();
                     if (task != null) {
-                        Message msg = null;
                         try {
                             task.run();
-                            msg = handler.obtainMessage(TASK_RUN_SUCCESS,task);
+                            handler.sendMessage(handler.obtainMessage(TASK_RUN_SUCCESS, task));
                         } catch (Exception e) {
                             task.setErrorMessage(e.getMessage());
-                            msg = handler.obtainMessage(TASK_RUN_ERROR, task);
+                            handler.sendMessage(handler.obtainMessage(TASK_RUN_ERROR, task));
                         }
-                        handler.sendMessage(msg);
                     } else {
                         try {
                             Thread.sleep(1000);

@@ -4,6 +4,9 @@ import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 
+import com.weightloss.dao.entity.SportRecord;
+import com.weightloss.dao.entity.User;
+
 /**
  * Created by admin on 2015/11/2.
  */
@@ -28,7 +31,8 @@ public class DBHelper extends SQLiteOpenHelper {
 
     @Override
     public void onCreate(SQLiteDatabase db) {
-
+        db.execSQL(User.CREATE_TABLE);
+        db.execSQL(SportRecord.CREATE_TABLE);
     }
 
     @Override

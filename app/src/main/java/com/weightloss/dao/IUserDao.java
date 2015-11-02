@@ -2,6 +2,8 @@ package com.weightloss.dao;
 
 import com.weightloss.dao.entity.User;
 
+import java.util.List;
+
 /**
  * Created by admin on 2015/11/2.
  */
@@ -25,4 +27,10 @@ public interface IUserDao {
      * @return
      */
     User getUserByName(String userName);
+
+    /**
+     * 获取用户列表
+     * @return
+     */
+    List<User> getUserList();
 }

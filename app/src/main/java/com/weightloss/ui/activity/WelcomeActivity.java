@@ -35,19 +35,25 @@ public class WelcomeActivity extends BaseActivity {
                         handler.removeMessages(1);
                         handler.removeMessages(2);
                         handler.removeMessages(3);
-                        startActivity(new Intent(WelcomeActivity.this,MainActivity.class));
+                        handler.removeMessages(4);
+                        startActivity(new Intent(WelcomeActivity.this,MainActivity_.class));
+                        finish();
                         break;
                     case 1:
                         tvInit.setText("加载中。");
-                        handler.sendEmptyMessageDelayed(2, 200);
+                        handler.sendEmptyMessageDelayed(2, 300);
                         break;
                     case 2:
                         tvInit.setText("加载中。。");
-                        handler.sendEmptyMessageDelayed(3, 200);
+                        handler.sendEmptyMessageDelayed(3, 300);
                         break;
                     case 3:
                         tvInit.setText("加载中。。。");
-                        handler.sendEmptyMessageDelayed(1, 200);
+                        handler.sendEmptyMessageDelayed(4, 300);
+                        break;
+                    case 4:
+                        tvInit.setText("加载中");
+                        handler.sendEmptyMessageDelayed(1, 300);
                         break;
                 }
             }
@@ -58,12 +64,12 @@ public class WelcomeActivity extends BaseActivity {
 
 
     @Override
-    void onTaskFail(int action, String message) {
+    public void onTaskFail(int action, String message) {
 
     }
 
     @Override
-    void onTaskSuccess(int action, Object data) {
+    public void onTaskSuccess(int action, Object data) {
 
     }
 

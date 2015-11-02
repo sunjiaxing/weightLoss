@@ -5,4 +5,5 @@ package com.weightloss.task;
  */
 public interface TaskAction {
     int ACTION_GET_USER_LIST = 1;
+    int ACTION_SAVE_USER = 2;
 }

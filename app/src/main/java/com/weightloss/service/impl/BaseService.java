@@ -8,7 +8,7 @@ import android.content.Context;
 public abstract class BaseService {
     protected Context mContext;
 
-    BaseService(Context context){
+    public BaseService(Context context){
         this.mContext = context;
     }
 }

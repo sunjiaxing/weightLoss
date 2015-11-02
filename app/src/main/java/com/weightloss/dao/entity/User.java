@@ -14,8 +14,8 @@ public class User {
     public static final String KEY_COLUMN_USER_WEIGHT = "user_weight";
     public static final String KEY_COLUMN_FAT_RATE = "fat_rate";
 
-    public static final String CREATE_TABLE = "CREATE TABLE " + TABLE_NAME + " ( _id INTEGER PRIMARY KEY , "
-            + KEY_COLUMN_USER_ID + " INTEGER , "
+    public static final String CREATE_TABLE = "CREATE TABLE " + TABLE_NAME + " ( "
+            + KEY_COLUMN_USER_ID + " INTEGER PRIMARY KEY, "
             + KEY_COLUMN_USER_NAME + " TEXT , "
             + KEY_COLUMN_USER_SEX + " INTEGER , "
             + KEY_COLUMN_USER_HEIGHT + " FLOAT , "

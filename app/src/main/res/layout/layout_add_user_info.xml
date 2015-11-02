@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <include
+        layout="@layout/title"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:padding="10dp">
+
+        <EditText
+            android:id="@+id/edit_user_name"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="15dp"
+            android:gravity="center_vertical"
+            android:hint="请输入用户名"
+            android:paddingLeft="10dp"
+            android:paddingRight="10dp"
+            android:textColor="#333"
+            android:textSize="15sp" />
+
+        <EditText
+            android:id="@+id/edit_height"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="15dp"
+            android:gravity="center_vertical"
+            android:hint="请输入身高"
+            android:paddingLeft="10dp"
+            android:paddingRight="10dp"
+            android:textColor="#333"
+            android:textSize="15sp" />
+
+        <EditText
+            android:id="@+id/edit_weight"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="15dp"
+            android:gravity="center_vertical"
+            android:hint="请输入体重"
+            android:paddingLeft="10dp"
+            android:paddingRight="10dp"
+            android:textColor="#333"
+            android:textSize="15sp" />
+
+        <EditText
+            android:id="@+id/edit_fat"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="15dp"
+            android:gravity="center_vertical"
+            android:hint="请输入体脂率"
+            android:paddingLeft="10dp"
+            android:paddingRight="10dp"
+            android:textColor="#333"
+            android:textSize="15sp" />
+
+
+    </LinearLayout>
+</LinearLayout>

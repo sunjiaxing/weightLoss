@@ -13,4 +13,14 @@ public interface IUserService {
      * @return
      */
     List<UserVO> getUserList();
+
+    /**
+     * 初始化用户信息
+     * @param name
+     * @param height
+     * @param weight
+     * @param fatRate
+     * @param sex
+     */
+    void initUserInfo(String name,float height,float weight,float fatRate,int sex);
 }

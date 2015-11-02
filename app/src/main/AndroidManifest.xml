@@ -1,16 +1,17 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.weightloss" >
+    package="com.weightloss">
 
     <application
+        android:name=".ui.MyApplication"
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
         android:supportsRtl="true"
-        android:theme="@android:style/Theme.Light.NoTitleBar" >
+        android:theme="@android:style/Theme.Light.NoTitleBar">
         <activity
             android:name=".ui.activity.WelcomeActivity_"
-            android:label="@string/app_name" >
+            android:label="@string/app_name">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -22,11 +23,14 @@
             android:launchMode="singleTask"
             android:screenOrientation="portrait" />
 
+        <activity
+            android:name=".ui.activity.AddUserInfoActivity_"
+            android:screenOrientation="portrait" />
+
         <service
             android:name=".task.TaskService"
-            android:enabled="false"
-            android:exported="false" >
-        </service>
+            android:enabled="true"
+            android:exported="true"></service>
     </application>
 
 </manifest>
