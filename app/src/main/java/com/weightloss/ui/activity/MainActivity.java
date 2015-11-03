@@ -13,7 +13,8 @@ import android.widget.TextView;
 
 import com.weightloss.R;
 import com.weightloss.common.Utils;
-import com.weightloss.service.IParam;
+import com.weightloss.service.IRecordService;
+import com.weightloss.service.impl.RecordServiceImpl;
 import com.weightloss.service.impl.UserServiceImpl;
 import com.weightloss.task.Task;
 import com.weightloss.task.TaskAction;
@@ -46,6 +47,7 @@ public class MainActivity extends BaseActivity {
     Button btnSelectUser;
 
     private IUserService userService = null;
+    private IRecordService recordService = null;
     private List<UserVO> userList;
     private UserVO selectedUser;
 
@@ -57,6 +59,7 @@ public class MainActivity extends BaseActivity {
         btnRight.setText("添加记录");
         btnRight.setBackgroundColor(Color.TRANSPARENT);
         userService = new UserServiceImpl(this);
+        recordService = new RecordServiceImpl(this);
         getUserList();
     }
 
@@ -117,9 +120,8 @@ public class MainActivity extends BaseActivity {
         if (selectedUser == null) {
             showToast("请先选择用户！");
         } else {
-            Intent intent = new Intent(this, AddRecordActivity_.class);
-            intent.putExtra(IParam.USER_ID, selectedUser.getUserId());
-            startActivity(intent);
+            // 启动Activity
+            AddRecordActivity_.intent(this).userId(selectedUser.getUserId()).startForResult(124);
         }
     }
 
@@ -143,6 +145,31 @@ public class MainActivity extends BaseActivity {
         }
     }
 
+    /**
+     * 添加记录返回事件
+     * 2015年11月3日18:18:17
+     *
+     * @param resultCode
+     */
+    @OnActivityResult(124)
+    void afterAddRecord(int resultCode) {
+        if (resultCode == RESULT_OK) {
+            getSportRecordList();
+        }
+    }
+
+    /**
+     * 获取运动记录列表
+     */
+    void getSportRecordList() {
+        TaskManager.pushTask(new Task(TaskAction.ACTION_GET_RECORD_LIST) {
+            @Override
+            public void run() {
+                setReturnData(recordService.getRecordList(selectedUser.getUserId()));
+            }
+        }, this);
+    }
+
     @Override
     public void onTaskFail(int action, String message) {
         Log.e("=============", action + "********" + message);
@@ -156,6 +183,11 @@ public class MainActivity extends BaseActivity {
             case TaskAction.ACTION_GET_USER_LIST:
                 if (data != null) {
                     userList = (List<UserVO>) data;
+                }
+                break;
+            case TaskAction.ACTION_GET_RECORD_LIST:
+                if (data != null) {
+
                 }
                 break;
         }

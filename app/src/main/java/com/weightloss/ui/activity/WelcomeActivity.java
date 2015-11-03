@@ -36,7 +36,7 @@ public class WelcomeActivity extends BaseActivity {
                         handler.removeMessages(2);
                         handler.removeMessages(3);
                         handler.removeMessages(4);
-                        startActivity(new Intent(WelcomeActivity.this,MainActivity_.class));
+                        MainActivity_.intent(WelcomeActivity.this).start();
                         finish();
                         break;
                     case 1:
