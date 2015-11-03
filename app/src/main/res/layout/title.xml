@@ -45,7 +45,9 @@
         android:layout_alignParentRight="true"
         android:layout_centerVertical="true"
         android:text=""
-        android:textColor="@android:color/white"
+        android:layout_marginRight="5dp"
+        android:textSize="14sp"
+        android:textColor="@color/right_menu_color"
         android:visibility="gone" />
 
 </RelativeLayout>

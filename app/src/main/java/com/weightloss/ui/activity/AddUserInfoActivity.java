@@ -52,16 +52,21 @@ public class AddUserInfoActivity extends BaseActivity {
         btnRight.setBackgroundColor(Color.TRANSPARENT);
     }
 
+    /**
+     * 保存用户信息
+     * 2015年11月3日10:39:22
+     */
     @Click(R.id.btn_right)
     void saveUser() {
         userService = new UserServiceImpl(this);
+        // TODO UI部分数据验证
         TaskManager.pushTask(new Task(TaskAction.ACTION_SAVE_USER) {
             @Override
             public void run() {
-                userService.initUserInfo(editName.getText().toString(),
-                        Float.parseFloat(editHeight.getText().toString()),
-                        Float.parseFloat(editWeight.getText().toString()),
-                        Float.parseFloat(editFatRate.getText().toString()), 0);
+                userService.addUserInfo(editName.getText().toString(),
+                        editHeight.getText().toString(),
+                        editWeight.getText().toString(),
+                        editFatRate.getText().toString(), 0);
             }
         }, this);
     }
@@ -81,7 +86,7 @@ public class AddUserInfoActivity extends BaseActivity {
 
     @Override
     public void onTaskSuccess(int action, Object data) {
-        switch (action){
+        switch (action) {
             case TaskAction.ACTION_SAVE_USER:
                 showToast("添加成功！");
                 setResult(RESULT_OK);

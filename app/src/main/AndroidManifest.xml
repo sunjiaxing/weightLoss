@@ -25,12 +25,13 @@
 
         <activity
             android:name=".ui.activity.AddUserInfoActivity_"
+            android:windowSoftInputMode="stateHidden|adjustResize"
             android:screenOrientation="portrait" />
 
         <service
             android:name=".task.TaskService"
             android:enabled="true"
-            android:exported="true"></service>
+            android:exported="true"/>
     </application>
 
 </manifest>
