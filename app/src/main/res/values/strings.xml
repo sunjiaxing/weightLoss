@@ -5,4 +5,5 @@
     <string name="select_user">选择用户</string>
     <string name="init_user">初始化用户</string>
     <string name="add_new_user">添加新用户</string>
+    <string name="start_run">计时开始</string>
 </resources>
