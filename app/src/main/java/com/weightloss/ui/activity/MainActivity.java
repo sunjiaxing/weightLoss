@@ -13,6 +13,7 @@ import android.widget.TextView;
 
 import com.weightloss.R;
 import com.weightloss.common.Utils;
+import com.weightloss.service.IParam;
 import com.weightloss.service.impl.UserServiceImpl;
 import com.weightloss.task.Task;
 import com.weightloss.task.TaskAction;
@@ -113,7 +114,13 @@ public class MainActivity extends BaseActivity {
      */
     @Click(R.id.btn_right)
     void addSportRecord() {
-
+        if (selectedUser == null) {
+            showToast("请先选择用户！");
+        } else {
+            Intent intent = new Intent(this, AddRecordActivity_.class);
+            intent.putExtra(IParam.USER_ID, selectedUser.getUserId());
+            startActivity(intent);
+        }
     }
 
     /**
