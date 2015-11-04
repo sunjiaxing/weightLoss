@@ -1,5 +1,7 @@
 package com.weightloss.service;
 
+import com.weightloss.dao.entity.SportRecord;
+import com.weightloss.ui.vo.SportDateVO;
 import com.weightloss.ui.vo.SportRecordVO;
 
 import java.util.List;
@@ -17,6 +19,7 @@ public interface IRecordService {
      * @param calory
      * @param weight
      */
+    @Deprecated
     void addRecord(long startTime, long endTime, float distance, float calory, float weight);
 
     /**
@@ -39,4 +42,12 @@ public interface IRecordService {
      * @return
      */
     List<SportRecordVO> getRecordList(int userId);
+
+    /**
+     * 获取运动天数记录
+     *
+     * @param userId
+     * @return
+     */
+    List<SportDateVO> getDateList(int userId);
 }

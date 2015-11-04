@@ -1,8 +1,6 @@
 package com.weightloss.ui.activity;
 
-import android.app.Activity;
 import android.graphics.Color;
-import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
 import android.util.Log;
@@ -11,9 +9,11 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.weightloss.R;
+import com.weightloss.common.Utils;
 import com.weightloss.service.IRecordService;
 import com.weightloss.service.impl.RecordServiceImpl;
 import com.weightloss.task.Task;
@@ -43,8 +43,12 @@ public class AddRecordActivity extends BaseActivity {
     EditText editCalory;
     @ViewById(R.id.edit_weight)
     EditText editWeight;
+    @ViewById(R.id.edit_fat_rate)
+    EditText editFatRate;
     @ViewById(R.id.tv_time)
     TextView tvTime;
+    @ViewById(R.id.layout_input)
+    LinearLayout layoutInput;
 
     private long startTime = 0;
     private long endTime = 0;
@@ -86,12 +90,14 @@ public class AddRecordActivity extends BaseActivity {
             isRunning = false;
             tvTime.setVisibility(View.VISIBLE);
             tvTime.setText("本次用时 " + (endTime - startTime) / 1000 + "秒");
+            layoutInput.setVisibility(View.VISIBLE);
         } else {
             // 开始
             isRunning = true;
             startTime = System.currentTimeMillis();
             btnTime.setText("点击结束(" + time + "s)");
             tvTime.setVisibility(View.GONE);
+            layoutInput.setVisibility(View.GONE);
             handler.sendEmptyMessageDelayed(1, 1000);
         }
     }
@@ -115,8 +121,17 @@ public class AddRecordActivity extends BaseActivity {
         TaskManager.pushTask(new Task(TaskAction.ACTION_SAVE_RECORD) {
             @Override
             public void run() {
-                // TODO 数据非空验证
-                recordService.addRecord(startTime, endTime, Float.parseFloat(editDistance.getText().toString()), Float.parseFloat(editCalory.getText().toString()), 0);
+                // 数据非空验证
+                if (Utils.isEmpty(editDistance.getText().toString())) {
+                    showToast("请输入跑步距离");
+                    editDistance.requestFocus();
+                } else if (Utils.isEmpty(editCalory.getText().toString())) {
+                    showToast("请输入消耗的卡路里");
+                    editCalory.requestFocus();
+                }
+                recordService.addRecord(userId, startTime, endTime,
+                        editDistance.getText().toString(), editCalory.getText().toString(),
+                        editWeight.getText().toString(), editFatRate.getText().toString());
             }
         }, this);
     }

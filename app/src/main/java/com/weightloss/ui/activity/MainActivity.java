@@ -2,13 +2,13 @@ package com.weightloss.ui.activity;
 
 import android.app.AlertDialog;
 import android.content.DialogInterface;
-import android.content.Intent;
 import android.graphics.Color;
 import android.util.Log;
 import android.view.KeyEvent;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.ListView;
 import android.widget.TextView;
 
 import com.weightloss.R;
@@ -20,11 +20,14 @@ import com.weightloss.task.Task;
 import com.weightloss.task.TaskAction;
 import com.weightloss.task.TaskManager;
 import com.weightloss.service.IUserService;
+import com.weightloss.ui.adapter.SportDateAdapter;
+import com.weightloss.ui.vo.SportDateVO;
 import com.weightloss.ui.vo.UserVO;
 
 import org.androidannotations.annotations.AfterViews;
 import org.androidannotations.annotations.Click;
 import org.androidannotations.annotations.EActivity;
+import org.androidannotations.annotations.ItemClick;
 import org.androidannotations.annotations.OnActivityResult;
 import org.androidannotations.annotations.ViewById;
 
@@ -45,11 +48,15 @@ public class MainActivity extends BaseActivity {
     Button btnInitUser;
     @ViewById(R.id.btn_select_user)
     Button btnSelectUser;
+    @ViewById(R.id.lv_date)
+    ListView lvDate;
 
     private IUserService userService = null;
     private IRecordService recordService = null;
     private List<UserVO> userList;
     private UserVO selectedUser;
+    private List<SportDateVO> dateList;
+    private SportDateAdapter adapter;
 
     @AfterViews
     void initData() {
@@ -90,8 +97,11 @@ public class MainActivity extends BaseActivity {
                     Log.i("==============", "which : " + which);
                     selectedUser = userList.get(which);
                     btnSelectUser.setText(selectedUser.getUserName() + "(切换)");
+                    getSportRecordList();
                 }
             }).show();
+        } else {
+            showToast("暂无用户，请添加新用户");
         }
     }
 
@@ -130,7 +140,7 @@ public class MainActivity extends BaseActivity {
      */
     @Click(R.id.btn_init_user)
     void addUserInfo() {
-        startActivityForResult(new Intent(this, AddUserInfoActivity_.class), 123);
+        AddUserInfoActivity_.intent(this).startForResult(123);
     }
 
     /**
@@ -165,7 +175,7 @@ public class MainActivity extends BaseActivity {
         TaskManager.pushTask(new Task(TaskAction.ACTION_GET_RECORD_LIST) {
             @Override
             public void run() {
-                setReturnData(recordService.getRecordList(selectedUser.getUserId()));
+                setReturnData(recordService.getDateList(selectedUser.getUserId()));
             }
         }, this);
     }
@@ -187,9 +197,30 @@ public class MainActivity extends BaseActivity {
                 break;
             case TaskAction.ACTION_GET_RECORD_LIST:
                 if (data != null) {
-
+                    dateList = (List<SportDateVO>) data;
+                    refreshSportDate();
                 }
                 break;
         }
+    }
+
+    /**
+     * 刷新天记录列表
+     * 2015年11月4日17:19:50
+     */
+    void refreshSportDate() {
+        if (adapter == null) {
+            adapter = new SportDateAdapter(this);
+            adapter.setData(dateList);
+            lvDate.setAdapter(adapter);
+        } else {
+            adapter.setData(dateList);
+            adapter.notifyDataSetChanged();
+        }
+    }
+
+    @ItemClick(R.id.lv_date)
+    void showDetailRecord(int position) {
+        showToast("先看着吧" + position);
     }
 }

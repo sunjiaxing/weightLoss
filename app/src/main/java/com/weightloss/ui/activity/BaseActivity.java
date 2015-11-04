@@ -2,6 +2,7 @@ package com.weightloss.ui.activity;
 
 import android.app.Activity;
 import android.os.Bundle;
+import android.util.Log;
 import android.widget.Toast;
 
 
@@ -45,5 +46,11 @@ public abstract class BaseActivity extends Activity {
             mToast = Toast.makeText(this, message, Toast.LENGTH_SHORT);
         }
         mToast.show();
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        Log.i("==============","ondestory " + this);
     }
 }

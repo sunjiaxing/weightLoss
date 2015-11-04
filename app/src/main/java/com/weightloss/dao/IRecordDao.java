@@ -10,12 +10,14 @@ import java.util.List;
 public interface IRecordDao {
     /**
      * 插入记录
+     *
      * @param record
      */
     void insertRecord(SportRecord record);
 
     /**
      * 通过用户id获取记录
+     *
      * @param userId
      * @return
      */
@@ -23,13 +25,30 @@ public interface IRecordDao {
 
     /**
      * 通过userId获取记录列表
-     * 2015年11月3日18:22:58
+     *
      * @param userId
      * @return
      */
     List<SportRecord> getRecordListByUserId(int userId);
 
-    SportRecord getRecord(int userId,long currentDay);
+    SportRecord getRecord(int userId, long currentDay);
+
+    /**
+     * 获取某一天详细记录
+     *
+     * @param userId
+     * @param currentDay
+     * @return
+     */
+    List<SportRecord> getRecordList(int userId, long currentDay);
+
+    /**
+     * 获取运动天 记录列表
+     *
+     * @param userId
+     * @return
+     */
+    List<Long> getSportDay(int userId);
 
 
 }

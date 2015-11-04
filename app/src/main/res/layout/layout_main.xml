@@ -45,5 +45,12 @@
             android:textSize="16sp" />
     </LinearLayout>
 
-
+    <ListView
+        android:id="@+id/lv_date"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:cacheColorHint="@android:color/transparent"
+        android:divider="#e5e6e8"
+        android:fadingEdge="none"
+        android:scrollbars="none" />
 </LinearLayout>

@@ -6,6 +6,7 @@ import android.os.Handler;
 import android.os.IBinder;
 import android.os.Message;
 import android.support.annotation.Nullable;
+import android.util.Log;
 
 import com.weightloss.exception.AppException;
 
@@ -53,6 +54,7 @@ public class TaskService extends Service {
                 while (isRunning) {
                     Task task = TaskManager.getNext();
                     if (task != null) {
+                        Log.i("================", task.getCallBack() + "");
                         try {
                             task.run();
                             handler.sendMessage(handler.obtainMessage(TASK_RUN_SUCCESS, task));
